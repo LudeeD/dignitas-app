@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   android:minHeight="?listPreferredItemHeightLarge"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_margin="4dp"
+                                                   app:cardCornerRadius="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?listPreferredItemHeightLarge">
+        <TextView
+                android:text="Acidente de Carros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+        />
+        <TextView
+                android:text="Latitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView_title"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:layout_marginTop="16dp"/>
+        <TextView
+                android:text="Longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+                android:text="Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView13"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="120dp"
+                app:layout_constraintStart_toEndOf="@+id/textView_lat" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView_title"/>
+        <TextView
+                android:text="43.12345"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_lat"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView_title"
+                app:layout_constraintStart_toEndOf="@+id/textView9" android:layout_marginStart="16dp"/>
+        <TextView
+                android:text="123.12345"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_lng"
+                app:layout_constraintStart_toEndOf="@+id/textView9"
+                android:layout_marginStart="16dp"
+                app:layout_constraintTop_toTopOf="@+id/textView9"/>
+        <TextView
+                android:text="Closed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_status"
+                app:layout_constraintStart_toEndOf="@+id/textView13" android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@+id/textView13"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
