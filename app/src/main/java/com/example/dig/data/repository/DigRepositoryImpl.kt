@@ -9,6 +9,8 @@ import com.example.dig.data.db.util.VoteDetail
 import com.example.dig.data.db.util.VoteResume
 import com.example.dig.data.network.OpinionData
 import com.example.dig.data.network.VotesNetworkDataSource
+import com.example.dig.data.network.post.Transaction
+import com.example.dig.data.network.response.StatusResponse
 import com.example.dig.data.network.response.VotesResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -20,6 +22,7 @@ class DigRepositoryImpl(
     private val networkDataSource: VotesNetworkDataSource,
     private val networkDataSourceOpinion: OpinionData
 ) : DigRepository {
+
 
     init{
         networkDataSource.downloadedVotes.observeForever{
@@ -33,10 +36,16 @@ class DigRepositoryImpl(
 
 
     override suspend fun getVoteDetailById(id_vote: Int): LiveData<VoteDetail> {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             // Not Necessary
             //initVoteData()
             return@withContext currentCacheVotesDao.getCachedVoteDetailById(id_vote)
+        }
+    }
+
+    override suspend fun getVoteDetailByPosition(str: Array<String>): LiveData<VoteDetail>{
+        return withContext(Dispatchers.IO){
+            return@withContext currentCacheVotesDao.getCachedVoteDetailByPosition(str[0], str[1])
         }
     }
 
@@ -56,6 +65,8 @@ class DigRepositoryImpl(
     private suspend fun initVoteData(){
         // If there is Internet Always Fetch New Votes
         if(isFetchNeeded())
+            //Maybe not the best way to do this
+            currentCacheVotesDao.deleteCache()
             fetchVotes()
     }
 
@@ -65,5 +76,9 @@ class DigRepositoryImpl(
 
     private fun isFetchNeeded() : Boolean{
         return true
+    }
+
+    override suspend fun postVote(vote: Vote): StatusResponse {
+        return networkDataSource.postVote(vote)
     }
 }

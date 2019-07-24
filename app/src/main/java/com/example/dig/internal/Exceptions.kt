@@ -4,3 +4,4 @@ import java.io.IOException
 
 class NoConnectivityException : IOException()
 class VoteIdNotFound : IOException()
+class SigningError : IOException()

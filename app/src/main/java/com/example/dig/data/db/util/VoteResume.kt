@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 
 class VoteResume (
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: String,
     @ColumnInfo(name = "title")
     val title: String,
     @ColumnInfo(name = "pos_lat")

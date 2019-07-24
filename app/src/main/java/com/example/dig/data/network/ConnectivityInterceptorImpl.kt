@@ -2,6 +2,7 @@ package com.example.dig.data.network
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.util.Log
 import com.example.dig.internal.NoConnectivityException
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -32,8 +33,10 @@ class ConnectivityInterceptorImpl(
         val request = chain.request();
         try {
             val response = chain.proceed(request)
+            Log.v("PILAAA", chain.request().url().toString())
             return response
         }catch (e: Exception){
+            Log.v("PILAAA", chain.request().url().toString())
             return null
         }
     }

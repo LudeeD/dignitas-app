@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "cache_votes_table")
 data class Vote(
     @PrimaryKey
-    val id: Int,
+    val id: String,
     val title: String,
     val info: String,
     @Embedded(prefix = "pos_")

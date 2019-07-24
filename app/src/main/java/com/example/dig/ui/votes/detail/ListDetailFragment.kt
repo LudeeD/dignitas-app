@@ -27,7 +27,7 @@ class ListDetailFragment : ScopedFragment(), KodeinAware {
     override val kodein by kodein()
 
     private val viewModelFactoryInstanceFactory
-            : (( Int ) -> ListDetailViewModelFactory) by factory()
+            : (( Array<String>) -> ListDetailViewModelFactory) by factory()
 
     private lateinit var viewModel: ListDetailViewModel
 
@@ -47,9 +47,9 @@ class ListDetailFragment : ScopedFragment(), KodeinAware {
         }
 
 
-        val voteId = safeArgs?.voteId ?: throw VoteIdNotFound()
+        val vote_pos = safeArgs?.votePos ?: throw VoteIdNotFound()
 
-        viewModel = ViewModelProviders.of(this, viewModelFactoryInstanceFactory(voteId)).get(ListDetailViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactoryInstanceFactory(vote_pos)).get(ListDetailViewModel::class.java)
 
         button_vote_true.setOnClickListener { onVoteTrueButtonClicked() }
         button_vote_false.setOnClickListener { onVoteFalseButtonClicked() }
@@ -61,12 +61,12 @@ class ListDetailFragment : ScopedFragment(), KodeinAware {
     //}
 
 
-    private fun onVoteTrueButtonClicked(){
-        Toast.makeText(context, "True" + editText_value.text, Toast.LENGTH_LONG).show()
+    private fun onVoteTrueButtonClicked() = launch(Dispatchers.IO){
+        viewModel.postOpinion(Opinion(Integer.parseInt(editText_value.text.toString()), textView_id.text.toString()))
     }
 
-    private fun onVoteFalseButtonClicked(){
-        Toast.makeText(context, "FAlSE" + editText_value.text, Toast.LENGTH_LONG).show()
+    private fun onVoteFalseButtonClicked() = launch(Dispatchers.IO){
+        viewModel.postOpinion(Opinion(Integer.parseInt(editText_value.text.toString()).inv(), textView_id.text.toString()))
     }
 
 

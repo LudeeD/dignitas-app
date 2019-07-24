@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 
 class VoteDetail(
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: String,
     @ColumnInfo(name = "title")
     val title: String,
     @ColumnInfo(name = "info")

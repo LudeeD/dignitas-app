@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+            android:title="Keys and Security">
+
+        <EditTextPreference
+                android:key="OBU_PK"
+                android:title="OBU public key"
+                android:summary="Public key of the OBU to use"
+                android:defaultValue="@string/default_obu"
+        />
+
+    </PreferenceCategory>
+</PreferenceScreen>

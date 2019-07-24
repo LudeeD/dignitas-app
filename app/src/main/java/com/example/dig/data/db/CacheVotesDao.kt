@@ -21,4 +21,10 @@ interface CacheVotesDao{
 
     @Query("SELECT * from cache_votes_table WHERE id = :id")
     fun getCachedVoteDetailById(id: Int): LiveData<VoteDetail>
+
+    @Query("SELECT * from cache_votes_table WHERE pos_lat = :lat AND pos_lng = :lng")
+    fun getCachedVoteDetailByPosition(lat: String, lng: String) : LiveData<VoteDetail>
+
+    @Query("DELETE FROM cache_votes_table")
+    fun deleteCache()
 }

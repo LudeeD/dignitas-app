@@ -24,7 +24,7 @@
             android:name="com.example.dig.ui.votes.detail.ListDetailFragment"
             android:label="future_detail_weather_fragment"
             tools:layout="@layout/list_detail_fragment" >
-        <argument android:name="voteId" app:argType="integer"/>
+        <argument android:name="vote_pos" app:argType="string[]"/>
     </fragment>
 
     <fragment
@@ -32,5 +32,7 @@
             android:name="com.example.dig.ui.report.ReportFragment"
             android:label="submit_fragment"
             tools:layout="@layout/report_fragment" />
+    <fragment android:id="@+id/settingsFragment" android:name="com.example.dig.ui.Settings.SettingsFragment"
+              android:label="fragment_settings" tools:layout="@layout/fragment_settings"/>
 
 </navigation>

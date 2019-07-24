@@ -7,11 +7,11 @@ import com.example.dig.internal.lazyDeferred
 
 class ListDetailViewModel(
     private val digRepository: DigRepository,
-    private val vote_id : Int
+    private val vote_pos : Array<String>
 ) : ViewModel() {
 
     val vote by lazyDeferred{
-        digRepository.getVoteDetailById(vote_id)
+        digRepository.getVoteDetailByPosition(vote_pos)
     }
 
    suspend fun postOpinion(op: Opinion){

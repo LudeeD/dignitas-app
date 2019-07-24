@@ -6,11 +6,11 @@ import com.example.dig.data.repository.DigRepository
 
 class ListDetailViewModelFactory(
     private val digRepository: DigRepository,
-    private val vote_id: Int
+    private val vote_pos: Array<String>
 ) : ViewModelProvider.NewInstanceFactory(){
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ListDetailViewModel(digRepository, vote_id) as T
+        return ListDetailViewModel(digRepository, vote_pos) as T
     }
 }
