@@ -7,10 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 
 import com.example.dig.R
 import com.example.dig.data.db.entity.Opinion
+import com.example.dig.data.network.response.StatusResponse
 import com.example.dig.internal.VoteIdNotFound
 import com.example.dig.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.list_detail_fragment.*
@@ -30,6 +35,8 @@ class ListDetailFragment : ScopedFragment(), KodeinAware {
             : (( Array<String>) -> ListDetailViewModelFactory) by factory()
 
     private lateinit var viewModel: ListDetailViewModel
+
+    private var NetworkOperationStatus : MutableLiveData<StatusResponse> = MutableLiveData();
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,22 +58,27 @@ class ListDetailFragment : ScopedFragment(), KodeinAware {
 
         viewModel = ViewModelProviders.of(this, viewModelFactoryInstanceFactory(vote_pos)).get(ListDetailViewModel::class.java)
 
-        button_vote_true.setOnClickListener { onVoteTrueButtonClicked() }
-        button_vote_false.setOnClickListener { onVoteFalseButtonClicked() }
+        button_vote_true.setOnClickListener {
+            onVoteTrueButtonClicked();
+        }
+        button_vote_false.setOnClickListener {
+            onVoteFalseButtonClicked()
+        }
+
+        NetworkOperationStatus.observeForever{
+            Toast.makeText(context, it.status, Toast.LENGTH_LONG).show()
+            findNavController().popBackStack()
+        }
+
         bindUI()
     }
 
-    //private fun onVoteTrueButtonClicked()  = launch(Dispatchers.IO){
-    //    viewModel.postOpinion(Opinion(1, -12, 1))
-    //}
-
-
     private fun onVoteTrueButtonClicked() = launch(Dispatchers.IO){
-        viewModel.postOpinion(Opinion(Integer.parseInt(editText_value.text.toString()), textView_id.text.toString()))
+        NetworkOperationStatus.postValue(viewModel.postOpinion(Opinion(Integer.parseInt(editText_value.text.toString()), textView_id.text.toString())))
     }
 
     private fun onVoteFalseButtonClicked() = launch(Dispatchers.IO){
-        viewModel.postOpinion(Opinion(Integer.parseInt(editText_value.text.toString()).inv(), textView_id.text.toString()))
+        NetworkOperationStatus.postValue(viewModel.postOpinion(Opinion(Integer.parseInt(editText_value.text.toString()).inv(), textView_id.text.toString())))
     }
 
 

@@ -3,17 +3,20 @@ package com.example.dig.data.network
 import com.example.dig.data.db.entity.Location
 import com.example.dig.data.db.entity.Opinion
 import com.example.dig.data.network.post.Transaction
-import com.example.dig.data.network.response.OpinionResponse
+import com.example.dig.data.network.response.BalanceResponse
 import com.example.dig.data.network.response.StatusResponse
 import com.example.dig.data.network.response.VotesResponse
+import com.google.protobuf.ByteString
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
 
@@ -21,14 +24,11 @@ interface ApiService {
     @GET("vote")
     fun getVotes() : Deferred<VotesResponse>
 
-    @POST("vote")
-    fun postVotes(@Body vote_transaction: Transaction) : Deferred<StatusResponse>
+    @GET("balance/{wallet}")
+    fun getBalance(@Path("wallet") wallet : String): Deferred<BalanceResponse>
 
-    @POST("opinion")
-    fun postOpinions(@Body opinions: Transaction) : Deferred<OpinionResponse>
-
-    @GET("geoid")
-    fun fetchGeoId(@Body location: Location): Deferred<String>
+    @POST("transaction")
+    fun postTransaction(@Body payload: RequestBody) : Deferred<StatusResponse>
 
     companion object {
         operator fun invoke(

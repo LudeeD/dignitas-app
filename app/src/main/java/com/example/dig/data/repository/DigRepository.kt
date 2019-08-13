@@ -1,6 +1,7 @@
 package com.example.dig.data.repository
 
 import androidx.lifecycle.LiveData
+import com.example.dig.data.db.entity.Balance
 import com.example.dig.data.db.entity.Opinion
 import com.example.dig.data.db.entity.Vote
 import com.example.dig.data.db.util.VoteDetail
@@ -14,10 +15,10 @@ interface DigRepository {
 
     suspend fun getVoteDetailByPosition(str: Array<String>): LiveData<VoteDetail>
 
-    suspend fun getVoteDetailById(id_vote : Int): LiveData<VoteDetail>
-
-    suspend fun postOpinion(opinion: Opinion)
+    suspend fun postOpinion(opinion: Opinion): StatusResponse
 
     suspend fun postVote(vote: Vote): StatusResponse
+
+    suspend fun getBalance(): LiveData<Balance>
 
 }

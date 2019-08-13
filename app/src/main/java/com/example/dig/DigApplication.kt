@@ -10,6 +10,7 @@ import com.example.dig.data.repository.DigRepository
 import com.example.dig.data.repository.DigRepositoryImpl
 import com.example.dig.sawtooth.DignitasHelper
 import com.example.dig.sawtooth.DignitasHelperImpl
+import com.example.dig.ui.profile.ProfileViewModelFactory
 import com.example.dig.ui.report.ReportViewModelFactory
 import com.example.dig.ui.votes.detail.ListDetailViewModelFactory
 import com.example.dig.ui.votes.list.ListViewModelFactory
@@ -25,15 +26,16 @@ class DigApplication : Application(), KodeinAware {
 
         bind<KeysProvider>() with singleton { KeysProviderImpl(instance()) }
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
-        bind<VotesNetworkDataSource>() with singleton { VotesNetworkDataSourceImpl(instance(), instance()) }
-        bind<OpinionData>() with singleton { OpinionDataImpl(instance(), instance()) }
+        bind<NetworkDataSource>() with singleton { NetworkDataSourceImpl(instance(), instance()) }
         bind<DigRepository>() with singleton { DigRepositoryImpl(instance(), instance(), instance()) }
         bind<DignitasHelper>() with singleton { DignitasHelperImpl(instance()) }
 
         bind() from singleton { DigDatabase(instance()) }
         bind() from singleton { instance<DigDatabase>().currentVotesDao() }
+        bind() from singleton { instance<DigDatabase>().currentBalanceDao() }
         bind() from singleton { ApiService(instance()) }
         bind() from provider { ListViewModelFactory(instance()) }
+        bind() from provider { ProfileViewModelFactory(instance()) }
         bind() from provider { ReportViewModelFactory(instance()) }
         bind() from factory { vote_pos: Array<String> -> ListDetailViewModelFactory(instance(), vote_pos) }
 

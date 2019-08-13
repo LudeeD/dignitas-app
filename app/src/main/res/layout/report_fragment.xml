@@ -9,7 +9,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Title"
+            android:text="Gato preso na árvore"
             android:ems="10"
             android:id="@+id/submit_title" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,8 @@
             android:id="@+id/submit_info" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/submit_title" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp" android:hint="info" android:text="Info"/>
+            android:layout_marginEnd="16dp" android:hint="info"
+            android:text="grande comução à volta de um gato preso numa árvore"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +33,7 @@
             android:ems="10"
             android:id="@+id/submit_lat" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/submit_info" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" android:hint="lat"/>
+            android:layout_marginStart="16dp" android:hint="lat" android:text="40.632173"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +41,8 @@
             android:ems="10"
             android:id="@+id/submit_lng"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/submit_lat" android:hint="lng"/>
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/submit_lat" android:hint="lng"
+            android:text="-8.650768"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +50,7 @@
             android:ems="10"
             android:id="@+id/submit_dir" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/submit_lng" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" android:hint="dir"/>
+            android:layout_marginStart="16dp" android:hint="dir" android:text="1.0"/>
     <Button
             android:text="Create"
             android:layout_width="wrap_content"

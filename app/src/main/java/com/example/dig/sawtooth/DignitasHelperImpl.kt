@@ -35,8 +35,12 @@ class DignitasHelperImpl(
         batcher_pubkey  = Secp256k1PublicKey.fromHex(keyProvider.getOBUPublicKey());
     }
 
+    override fun retrieveWalletAddress(): String {
+        return get_wallet_address(this.signer!!.publicKey.hex())
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun createVote(vote: Vote): PostTransaction {
+    override fun createVote(vote: Vote): ByteArray {
         val array_info = arrayOf("CreateVote", "", "",
             vote.title, vote.info,
             vote.location.lat.toString(),
@@ -45,7 +49,6 @@ class DignitasHelperImpl(
         )
 
         val payload_string = array_info.joinToString(",")
-        //Log.v("GOOOOOOOOOOOOOD", payload_string)
 
         val nonce = Random.nextDouble()
 
@@ -79,16 +82,11 @@ class DignitasHelperImpl(
             .build()
 
 
-        var encoder = Base64.getEncoder();
-
-
-        val post_transaction = PostTransaction(0, encoder.encodeToString(transaction.toByteArray()) )
-
-        return post_transaction
+        return transaction.toByteArray()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun createOpinion(opinion: Opinion): PostTransaction {
+    override fun createOpinion(opinion: Opinion): ByteArray {
         val array_info = arrayOf("Vote",opinion.voteId.toString(), opinion.value.toString())
 
         val payload_string = array_info.joinToString(",")
@@ -126,11 +124,7 @@ class DignitasHelperImpl(
             .build()
 
 
-        var encoder = Base64.getEncoder();
-
-        val post_transaction = PostTransaction(0, encoder.encodeToString(transaction.toByteArray()) )
-
-        return post_transaction
+        return transaction.toByteArray()
     }
 
 
@@ -143,9 +137,6 @@ class DignitasHelperImpl(
         return get_sw_prefix() + "00"
     }
 
-    private fun get_votes_prefix(): String{
-        return get_sw_prefix() + "01"
-    }
 
     private fun get_wallet_address(pubkey: String): String {
         return get_wallets_prefix() +  hash(pubkey).take(62)
@@ -153,6 +144,10 @@ class DignitasHelperImpl(
 
     private fun get_vote_address(pubkey: String): String {
         return get_votes_prefix()
+    }
+
+    private fun get_votes_prefix(): String{
+        return get_sw_prefix() + "01"
     }
 
     private fun hash(data:String) : String{
